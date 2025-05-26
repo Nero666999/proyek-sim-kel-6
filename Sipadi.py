@@ -371,7 +371,6 @@ def laporan():
 def main():
     st.set_page_config(layout="wide")  # Pastikan ada konfigurasi dasar
    
-    # Logo kecil di header (ganti dengan URL/logo sendiri jika ada)
     st.sidebar.title("Menu")
     
     logged_in = login_register()
