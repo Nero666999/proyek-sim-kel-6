@@ -12,7 +12,7 @@ def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
 def get_user_file(base_filename, username):
-    # contoh: pemasukan_user1.csv
+    
     name, ext = os.path.splitext(base_filename)
     return f"{name}_{username}{ext}"
 
@@ -22,7 +22,7 @@ def load_data(base_filename, username):
         try:
             return pd.read_csv(filename)
         except pd.errors.EmptyDataError:
-            # Jika file kosong, buat DataFrame kosong dengan kolom sesuai file yang dipakai
+            
             if "pemasukan" in filename:
                 return pd.DataFrame(columns=["Tanggal", "Sumber", "Jumlah", "Metode", "Keterangan", "Username"])
             elif "pengeluaran" in filename:
@@ -32,7 +32,7 @@ def load_data(base_filename, username):
             else:
                 return pd.DataFrame()
     else:
-        # Jika file belum ada, buat DataFrame kosong dengan kolom sesuai file
+        
         if "pemasukan" in base_filename:
             return pd.DataFrame(columns=["Tanggal", "Sumber", "Jumlah", "Metode", "Keterangan", "Username"])
         elif "pengeluaran" in base_filename:
@@ -69,7 +69,7 @@ def save_user_accounts(df):
 def register_user(username, password):
     akun_df = load_user_accounts()
     if (akun_df['Username'] == username).any():
-        return False  # Username sudah ada
+        return False  
     akun_df = pd.concat([akun_df, pd.DataFrame([{"Username": username, "Password": hash_password(password)}])], ignore_index=True)
     save_user_accounts(akun_df)
     return True
@@ -110,7 +110,7 @@ def login_register():
             else:
                 st.error("Username atau password salah.")
 
-    else:  # Daftar
+    else:  
         if st.button("Daftar"):
             if username.strip() == "" or password.strip() == "":
                 st.error("Harap isi semua kolom.")
@@ -369,7 +369,7 @@ def laporan():
 # ---------------- UI Utama ----------------
 
 def main():
-    st.set_page_config(layout="wide")  # Pastikan ada konfigurasi dasar
+    st.set_page_config(layout="wide")  
    
     st.sidebar.title("Menu")
     
@@ -396,8 +396,8 @@ def main():
         pengeluaran()
 
     elif menu == "Laporan":
-        laporan() # Grafik Plotly hanya ada di fungsi laporan()
-
+        laporan() 
+        
     elif menu == "Logout":
         st.session_state['logged_in'] = False
         st.session_state['username'] = ""
